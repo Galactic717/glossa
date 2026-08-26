@@ -185,13 +185,17 @@ def chunk_blocks(blocks: list[Block], size: int, overlap: int) -> list[Chunk]:
                 current = candidate
                 continue
             if current:
-                chunks.append(Chunk(text=current, index=index, page=block.page, section=block.section))
+                chunks.append(
+                    Chunk(text=current, index=index, page=block.page, section=block.section)
+                )
                 index += 1
                 current = f"{current[-overlap:]} {unit}".strip() if overlap else unit
             else:
                 current = unit
         if current.strip():
-            chunks.append(Chunk(text=current.strip(), index=index, page=block.page, section=block.section))
+            chunks.append(
+                Chunk(text=current.strip(), index=index, page=block.page, section=block.section)
+            )
             index += 1
 
     return chunks

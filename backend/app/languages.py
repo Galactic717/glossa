@@ -96,7 +96,8 @@ def detect(text: str, default: str = "en") -> str:
         return vote
 
     try:
-        from langdetect import DetectorFactory, detect as _detect
+        from langdetect import DetectorFactory
+        from langdetect import detect as _detect
 
         DetectorFactory.seed = 0
         code = _detect(text)

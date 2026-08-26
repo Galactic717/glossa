@@ -342,7 +342,14 @@ class RAGEngine:
         )
         return messages
 
-    def _meta(self, model: str | None, profile: Profile, language: str, hits: int, started: float) -> dict:
+    def _meta(
+        self,
+        model: str | None,
+        profile: Profile,
+        language: str,
+        hits: int,
+        started: float,
+    ) -> dict:
         return {
             "model": model or self.settings.llm_model,
             "profile": profile.name,

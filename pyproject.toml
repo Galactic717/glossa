@@ -34,7 +34,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8.0", "ruff>=0.6"]
+dev = ["pytest>=8.0", "ruff~=0.16.4"]
 
 [project.urls]
 Homepage = "https://github.com/Galactic717/glossa"
@@ -49,6 +49,20 @@ packages = ["backend", "backend.app", "cli"]
 [tool.ruff]
 line-length = 100
 target-version = "py310"
+
+[tool.ruff.lint]
+# Selected explicitly. With ruff's implicit defaults, a new release changes
+# what CI enforces and a green local run turns red on push for no code reason.
+select = ["E", "F", "W", "I", "B", "UP", "RUF"]
+# RUF001-003 flag Cyrillic letters as "ambiguous" lookalikes of Latin ones.
+# This project exists to handle 35 languages; the alphabets are the content.
+ignore = ["RUF001", "RUF002", "RUF003"]
+
+[tool.ruff.lint.per-file-ignores]
+# Typer declares options as call expressions in argument defaults. That is the
+# framework's documented API, not the mutable-default bug B008 looks for.
+"cli/main.py" = ["B008"]
+"backend/app/main.py" = ["B008"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

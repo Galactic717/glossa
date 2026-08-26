@@ -11,7 +11,7 @@ from fastapi.testclient import TestClient
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from backend.app import languages, main  # noqa: E402
+from backend.app import languages, main
 
 
 @pytest.fixture

@@ -45,8 +45,8 @@ if sys.platform == "win32":
         except (AttributeError, OSError):
             pass
 
-from backend.app import languages, utils  # noqa: E402
-from backend.app.config import PROFILES, settings  # noqa: E402
+from backend.app import languages, utils
+from backend.app.config import PROFILES, settings
 
 console = Console()
 ROOT = Path(__file__).resolve().parents[1]
@@ -203,7 +203,11 @@ def render_sources(sources: list[dict], full: bool = False) -> Panel:
         body.append(header)
         body.append(Text(snippet, style="dim"))
         body.append(Text(""))
-    return Panel(Group(*body[:-1]) if body else Text("no sources"), title="Sources", border_style="cyan")
+    return Panel(
+        Group(*body[:-1]) if body else Text("no sources"),
+        title="Sources",
+        border_style="cyan",
+    )
 
 
 def render_answer(result: dict) -> None:
@@ -271,7 +275,9 @@ def list_docs(api: str = API_OPTION) -> None:
     """List indexed documents."""
     documents = backend_for(api).documents()
     if not documents:
-        console.print("[yellow]Library is empty. Add something with[/] [bold]glossa add file.pdf[/]")
+        console.print(
+            "[yellow]Library is empty. Add something with[/] [bold]glossa add file.pdf[/]"
+        )
         return
 
     table = Table(title=f"{len(documents)} document(s)", header_style="bold cyan")
@@ -485,14 +491,23 @@ def dash(api: str = API_OPTION) -> None:
     status.add_column(style="dim")
     status.add_column()
     reachable = info.get("llm_reachable")
-    status.add_row("LLM", f"[{'green' if reachable else 'red'}]{info.get('llm_model')}[/] "
-                          f"[dim]{info.get('llm_base_url')}[/] "
-                          f"{'online' if reachable else 'offline'}")
+    provider = info.get("provider", settings.resolved_provider)
     where = "local" if info.get("llm_local", settings.is_local) else "remote"
-    status.add_row("Provider", f"{info.get('provider', settings.resolved_provider)} [dim]({where})[/]")
+    profile = PROFILES[settings.profile]
+
+    status.add_row(
+        "LLM",
+        f"[{'green' if reachable else 'red'}]{info.get('llm_model')}[/] "
+        f"[dim]{info.get('llm_base_url')}[/] "
+        f"{'online' if reachable else 'offline'}",
+    )
+    status.add_row("Provider", f"{provider} [dim]({where})[/]")
     status.add_row("Embeddings", f"{info.get('embedding_model')} [dim](always local)[/]")
-    status.add_row("Profile", f"{settings.profile} [dim]{PROFILES[settings.profile].description}[/]")
-    status.add_row("Library", f"{info.get('documents', 0)} documents · {info.get('chunks', 0)} chunks")
+    status.add_row("Profile", f"{profile.name} [dim]{profile.description}[/]")
+    status.add_row(
+        "Library",
+        f"{info.get('documents', 0)} documents · {info.get('chunks', 0)} chunks",
+    )
     status.add_row("Languages", f"{len(languages.LANGUAGES)} supported")
 
     by_language: dict[str, int] = {}
@@ -556,7 +571,9 @@ def build_web_ui() -> bool:
 
     for description, command in steps:
         with console.status(f"[dim]{description}...", spinner="dots"):
-            result = subprocess.run(command, cwd=frontend, capture_output=True, text=True)
+            result = subprocess.run(
+                command, cwd=frontend, capture_output=True, text=True, check=False
+            )
         if result.returncode != 0:
             console.print(f"[yellow]{description} failed -- serving the API only.[/]")
             console.print(f"[dim]{(result.stderr or result.stdout)[-400:]}[/]")

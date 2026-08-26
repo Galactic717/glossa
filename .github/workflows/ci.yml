@@ -18,7 +18,7 @@ jobs:
           python-version: ${{ matrix.python }}
           cache: pip
       # The tests stub the engine, so the heavy ML wheels are not installed here.
-      - run: pip install fastapi "uvicorn[standard]" python-multipart httpx langdetect pypdf python-docx typer rich pytest ruff
+      - run: pip install fastapi "uvicorn[standard]" python-multipart httpx langdetect pypdf python-docx typer rich pytest "ruff~=0.16.4"
       - run: ruff check backend cli tests
       - run: pytest -q
 

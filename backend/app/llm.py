@@ -239,6 +239,7 @@ class LLMClient:
         if self.provider == "ollama":
             return (
                 f"Cannot reach Ollama at {self.base_url}. "
-                f"Start it with `ollama serve`, then `ollama pull {self.settings.llm_model}`. ({exc})"
+                f"Start it with `ollama serve`, "
+                f"then `ollama pull {self.settings.llm_model}`. ({exc})"
             )
         return f"Cannot reach {self.provider} at {self.base_url}: {exc}"

@@ -238,7 +238,8 @@ else:
         return HTMLResponse(
             "<h1>Glossa</h1>"
             "<p>API is running. Docs: <a href='/docs'>/docs</a></p>"
-            "<p>Build the web UI with <code>cd frontend &amp;&amp; npm install &amp;&amp; npm run build</code>, "
+            "<p>Build the web UI with "
+            "<code>cd frontend &amp;&amp; npm install &amp;&amp; npm run build</code>, "
             "or run it in dev mode with <code>npm run dev</code>.</p>"
         )
 
