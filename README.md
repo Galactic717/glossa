@@ -39,6 +39,17 @@ model, or on any API you already pay for. One command starts everything.
 A real run against [`examples/contract.pdf`](examples/contract.pdf), not a
 mock-up. Reproduce it with `glossa add examples && glossa chat`.
 
+<div align="center">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/ui-dark.png">
+  <img alt="Glossa answering a question about a Ukrainian supply contract. The answer carries three citation chips, and source [1] is expanded to show the exact paragraph on page 2 that backs the claim." src="docs/images/ui-light.png" width="900">
+</picture>
+
+<sub>Citation <b>[1]</b> expanded to the paragraph it came from. Light and dark follow your system theme.</sub>
+
+</div>
+
 ## Quick start
 
 ```bash

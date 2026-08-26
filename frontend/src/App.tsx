@@ -54,7 +54,7 @@ export default function App() {
     <div className="app">
       <header className="topbar">
         <div className="brand">
-          <span className="logo">Gl</span>
+          <span className="logo">G</span>
           <div>
             <h1>Glossa</h1>
             <p>

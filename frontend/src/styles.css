@@ -623,6 +623,9 @@ button {
 .composer textarea {
   flex: 1;
   resize: none;
+  /* The box auto-grows to fit its content, so a scrollbar is only real once
+     it hits max-height. Left on auto, an empty one-row box shows a stray one. */
+  overflow-y: hidden;
   padding: 12px 14px;
   border: 1px solid var(--border);
   border-radius: var(--radius);

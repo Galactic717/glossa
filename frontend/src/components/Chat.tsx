@@ -132,6 +132,7 @@ export function Chat({ docCount, selected, profile, model, topK, onError }: Prop
             const element = event.target;
             element.style.height = "auto";
             element.style.height = `${Math.min(element.scrollHeight, 200)}px`;
+            element.style.overflowY = element.scrollHeight > 200 ? "auto" : "hidden";
           }}
           onKeyDown={(event) => {
             if (event.key === "Enter" && !event.shiftKey) {
