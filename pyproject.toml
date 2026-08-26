@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "glossa"
+version = "1.0.0"
+description = "Ask your own documents. 35 languages, cited answers, local or any API model."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+keywords = [
+  "rag", "llm", "chatbot", "multilingual", "citations", "offline",
+  "chromadb", "fastapi", "ollama", "openrouter", "anthropic",
+]
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Text Processing :: Indexing",
+]
+dependencies = [
+  "fastapi>=0.115",
+  "uvicorn[standard]>=0.30",
+  "python-multipart>=0.0.9",
+  "pydantic>=2.7",
+  "httpx>=0.27",
+  "chromadb>=0.5.5",
+  "sentence-transformers>=3.0",
+  "langdetect>=1.0.9",
+  "pypdf>=4.2",
+  "python-docx>=1.1",
+  "typer>=0.12",
+  "rich>=13.7",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "ruff>=0.6"]
+
+[project.urls]
+Homepage = "https://github.com/Galactic717/glossa"
+Issues = "https://github.com/Galactic717/glossa/issues"
+
+[project.scripts]
+glossa = "cli.main:app"
+
+[tool.setuptools]
+packages = ["backend", "backend.app", "cli"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning", "ignore::PendingDeprecationWarning"]
