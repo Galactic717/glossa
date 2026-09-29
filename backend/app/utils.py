@@ -82,7 +82,8 @@ def _parse_docx(path: Path) -> list[Block]:
         text = paragraph.text.strip()
         if not text:
             continue
-        if paragraph.style.name.lower().startswith("heading"):
+        style = paragraph.style
+        if style is not None and (style.name or "").lower().startswith("heading"):
             flush()
             section = text
             continue

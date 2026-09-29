@@ -16,6 +16,7 @@ of loading the models into this process.
 
 from __future__ import annotations
 
+import io
 import json
 import shutil
 import subprocess
@@ -40,10 +41,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 # Ukrainian character into a question mark. Force UTF-8 before Rich starts.
 if sys.platform == "win32":
     for stream in (sys.stdout, sys.stderr):
-        try:
-            stream.reconfigure(encoding="utf-8", errors="replace")
-        except (AttributeError, OSError):
-            pass
+        if isinstance(stream, io.TextIOWrapper):
+            try:
+                stream.reconfigure(encoding="utf-8", errors="replace")
+            except OSError:
+                pass
 
 from backend.app import languages, utils
 from backend.app.config import PROFILES, settings

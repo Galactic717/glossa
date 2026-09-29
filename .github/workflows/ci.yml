@@ -19,6 +19,7 @@ jobs:
           cache: pip
       - run: pip install -r tests/requirements.txt
       - run: ruff check backend cli tests
+      - run: mypy backend cli --ignore-missing-imports
       - run: pytest -q
 
   frontend:
